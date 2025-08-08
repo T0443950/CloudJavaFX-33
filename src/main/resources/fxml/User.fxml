@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.cloudjavafx.UserController">
+
+    <stylesheets>
+        <URL value="@/styles/admin.css" />
+    </stylesheets>
+
+    
+        <top>
+        <HBox alignment="CENTER_LEFT" styleClass="top-bar">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <!-- Back Button - Positioned on the far left -->
+            <Button onAction="#backhome" text="⬅️ Back" styleClass="back-button">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <HBox.margin>
+                    <Insets right="15"/> <!-- Margin to separate from the title -->
+                </HBox.margin>
+            </Button>
+            <Label styleClass="app-title" text="User Management">
+                <font>
+                    <Font size="22.0" />
+                </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#logout" styleClass="logout-button" text="Logout">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="main-content-pane">
+
+            <GridPane hgap="20" vgap="15" styleClass="form-section">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="200"/>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="200"/>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="60"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="150"/>
+                </columnConstraints>
+
+                <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="fullNameField" promptText="Enter full name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="emailField" promptText="Enter email" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Role:" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+                <ChoiceBox fx:id="roleComboBox" prefWidth="150" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+
+                <Label text="Username:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="usernameField" promptText="Enter username" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="6">
+                    <Button fx:id="butAdd" onAction="#insert" text="Add User" styleClass="action-button-primary"/>
+                    <Button fx:id="butEdit" onAction="#update" text="Update" styleClass="action-button-warning"/>
+                    <Button fx:id="butDelete" onAction="#deleteUser" text="Delete" styleClass="action-button-danger"/>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#refresh" text="🔄 Refresh" styleClass="action-button-info"/>
+                </HBox>
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-section">
+                <Label text="Search Users:"/>
+                <TextField fx:id="SearchField" HBox.hgrow="ALWAYS" promptText="Search by name, email, or username"/>
+                <Button onAction="#searchUsers" text="Search" styleClass="search-button"/>
+            </HBox>
+
+            <TableView fx:id="usersTable" VBox.vgrow="ALWAYS" styleClass="users-table">
+                <columns>
+                    <TableColumn fx:id="usernameColumn" text="Username" prefWidth="150">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="username" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="fullNameColumn" text="Full Name" prefWidth="200">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="fullName" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="250">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="email" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="roleColumn" text="Role" prefWidth="100">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="role" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="createdAtColumn" text="Register Date" prefWidth="180">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="createdAt" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <Label fx:id="statusLabel" styleClass="status-bar" text="Ready."/>
+    </bottom>
+
+</BorderPane>

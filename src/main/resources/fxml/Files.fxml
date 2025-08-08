@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.cloudjavafx.FileController">
+
+    <stylesheets>
+        <URL value="@/styles/admin.css" />
+    </stylesheets>
+
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="top-bar">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <!-- Back Button - Positioned on the far left -->
+            <Button onAction="#backhome" text="⬅️ Back" styleClass="back-button">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <HBox.margin>
+                    <Insets right="15"/> <!-- Margin to separate from the title -->
+                </HBox.margin>
+            </Button>
+            <Label styleClass="app-title" text="File Management">
+                <font>
+                    <Font size="22.0" />
+                </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#logout" styleClass="logout-button" text="Logout">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+        </HBox>
+    </top>
+
+    <center>
+        <!--<VBox alignment="CENTER" spacing="10">-->
+        <VBox spacing="20" styleClass="main-content-pane">
+
+            <!--            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="search-bar-container">
+                <TextField fx:id="searchField" promptText="Search files..." HBox.hgrow="ALWAYS" styleClass="search-field"/>
+                <Button fx:id="uploadButton" onAction="#uploadFile" text="⬆️ Upload File" styleClass="action-button"/>
+                <Button fx:id="downloadButton" onAction="#downloadFile" text="⬇️ Download" styleClass="action-button" disable="true"/>
+                <Button fx:id="deleteButton" onAction="#deleteFile" text="🗑️ Delete" styleClass="action-button" disable="true"/>
+            </HBox>-->
+            
+            <!-- File Upload/Download/Delete Section -->
+            <GridPane hgap="20" vgap="15" styleClass="form-section">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="200"/>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="200"/>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="60"/>
+                    <ColumnConstraints hgrow="ALWAYS" prefWidth="150"/>
+                </columnConstraints>
+                <!-- Search Section for Files -->
+                <Label text="Search Files:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="searchField" promptText="Search by file name or owner" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+                <Button onAction="#searchFiles" text="Search" styleClass="search-button" GridPane.rowIndex="0" GridPane.columnIndex="4" GridPane.columnSpan="2"/>
+
+                <!-- Action Buttons for Files -->
+                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="6">
+                    <Button fx:id="uploadButton" onAction="#uploadFile" text="Upload File" styleClass="action-button-primary"/>
+                    <Button fx:id="downloadButton" onAction="#downloadSelectedFile" text="Download Selected" styleClass="action-button-warning"/>
+                    <Button fx:id="deleteButton" onAction="#deleteSelectedFile" text="Delete Selected" styleClass="action-button-danger"/>
+                    <Button fx:id="shareButton" onAction="#shareSelectedFile" text="Share Selected" styleClass="action-button-info"/>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#refreshFiles" text="🔄 Refresh" styleClass="action-button-info"/>
+                </HBox>
+            </GridPane>
+
+
+            <TableView fx:id="allFilesTable" VBox.vgrow="ALWAYS" styleClass="file-table">
+                <columns>
+                    <TableColumn fx:id="nameColumn" prefWidth="250" text="File Name">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="originalName" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="ownerColumn" prefWidth="150" text="Owner">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="owner" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="sizeColumn" prefWidth="100" text="Size">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="sizeFormatted" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="uploadDateColumn" prefWidth="180" text="Upload Date">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="createdAtFormatted" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="typeColumn" prefWidth="80" text="Type">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="fileType" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="permissionsColumn" prefWidth="120" text="Access">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="permissions" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+
+</BorderPane>

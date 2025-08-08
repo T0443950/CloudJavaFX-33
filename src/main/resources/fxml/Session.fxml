@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.cloudjavafx.SessionController">
+
+    <stylesheets>
+        <URL value="@/styles/admin.css" />
+    </stylesheets>
+
+
+        <top>
+        <HBox alignment="CENTER_LEFT" styleClass="top-bar">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <!-- Back Button - Positioned on the far left -->
+            <Button onAction="#backhome" text="⬅️ Back" styleClass="back-button">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <HBox.margin>
+                    <Insets right="15"/> <!-- Margin to separate from the title -->
+                </HBox.margin>
+            </Button>
+            <Label styleClass="app-title" text="Sessions Details">
+                <font>
+                    <Font size="22.0" />
+                </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#logout" styleClass="logout-button" text="Logout">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="main-content-pane">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Active Sessions Table (Dynamic Title) -->
+            <Label fx:id="activeSessionsTableTitleLabel" text="Active Sessions" styleClass="section-title">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Label>
+            <TableView fx:id="activeSessionsTable" VBox.vgrow="ALWAYS" styleClass="files-table">
+                <placeholder>
+                    <Label text="No active sessions found."/>
+                </placeholder>
+                <columns>
+                    <TableColumn text="Session ID" prefWidth="150">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="session_id" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="User Name" prefWidth="150">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="username" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Login Time" prefWidth="180">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="loginTimeFormatted" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Last Activity" prefWidth="180">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="lastActivityFormatted" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="IP Address" prefWidth="120">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="ipAddress" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Action" prefWidth="100">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="actionButton" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <Label fx:id="statusLabel" styleClass="status-bar" text="Ready.">
+            <padding>
+                <Insets top="10" right="15" bottom="10" left="15"/>
+            </padding>
+        </Label>
+    </bottom>
+</BorderPane>
